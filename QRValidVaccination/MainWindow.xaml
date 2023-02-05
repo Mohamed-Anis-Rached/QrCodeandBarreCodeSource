@@ -1,0 +1,88 @@
+﻿<Window x:Class="QRValidVaccination.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QRValidVaccination"
+        xmlns:viewmodels="clr-namespace:QRValidVaccination.ViewModels"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanMinimize"
+        WindowStyle="None"
+        Title="MainWindow"  MinWidth="800" MinHeight="500" Height="650" Width="800">
+    <Grid Background="Azure" x:Name="GridOfWindow" MouseLeftButtonDown="GridOfWindow_MouseLeftButtonDown">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Text="Read QR Code and Barcode" FontSize="20" FontWeight="ExtraBold" FontFamily="Bookman Old Style"/>
+                <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="pack://application:,,,/QRValidVaccination;component/Resources/qr-code.png" Width="40" Height="20"/>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Height="40" VerticalAlignment="Bottom">
+                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                    <RadioButton x:Name="btn1" Checked="Btn1_Checked" IsChecked="True" >
+                        <TextBlock Text="Web Cam" />
+                    </RadioButton>
+                    <Border BorderBrush="Transparent" BorderThickness="5" />
+                    <RadioButton x:Name="btn2" Checked="Btn2_Checked" >
+                        <TextBlock Text="Open image"/>
+                    </RadioButton>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Image x:Name="QRImage" Width="550" Height="300" VerticalAlignment="Top" Margin="50"></Image>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="12">
+                <Button Style="{StaticResource ButtonStyle}" Cursor="Hand" Visibility="Collapsed" x:Name="Openimage" BorderBrush="Transparent" Grid.Column="1"  Width="150" Height="30"  Click="Openimage_Click" FontFamily="Trebuchet MS">
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <Image HorizontalAlignment="Left"  Source="Resources/photo.png" Height="20" Width="30" />
+                        <TextBlock HorizontalAlignment="Center"  VerticalAlignment="Center" Text="Open image" />
+                    </StackPanel>
+                </Button>
+                <Button Style="{StaticResource ButtonStyle}" Cursor="Hand" x:Name="Openwebcam" BorderBrush="Transparent" Grid.Column="1" Width="130" Height="30" Click="Openwebcam_Click" FontFamily="Trebuchet MS">
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal"   >
+                        <Image HorizontalAlignment="Left"  Source="Resources/webcam.png" Height="20" Width="30" />
+                        <TextBlock HorizontalAlignment="Center"  VerticalAlignment="Center" Text="Open Webcam" />
+                    </StackPanel>
+                </Button>
+                <Border BorderBrush="Transparent" BorderThickness="5" />
+                <Button Cursor="Hand" x:Name="closewebcam" Width="150" Height="30" Style="{StaticResource ButtonStyle}" Click="Closewebcam_Click">
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal"   >
+                        <Image HorizontalAlignment="Left"  Source="Resources/close (1).png" Height="20" Width="30" />
+                        <TextBlock HorizontalAlignment="Center"  VerticalAlignment="Center" Text="Close" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            <TextBox VerticalContentAlignment="Center" Height="65" Width="450" VerticalAlignment="Bottom" Margin="40" x:Name="affiche" HorizontalContentAlignment="Center" FontFamily="Lucida Sans Typewriter" FontSize="13" ScrollViewer.HorizontalScrollBarVisibility="Auto" IsReadOnly="True"></TextBox>
+            <TextBlock x:Name="message" Height="30" Width="250" VerticalAlignment="Bottom" Margin="115" Text="Your result is :"  FontSize="20" HorizontalAlignment="Center" TextAlignment="Center" FontFamily="Segoe UI Semibold" Visibility="Collapsed"></TextBlock>
+            <TextBlock x:Name="message1" Height="30" Width="250" VerticalAlignment="Bottom" Margin="115" Text="No data !" Foreground="Red" FontSize="20" HorizontalAlignment="Center" TextAlignment="Center" FontFamily="Segoe UI Semibold" Visibility="Collapsed"></TextBlock>               
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="155">
+                <Button x:Name="confirm" Grid.Column="0" Width="150" Height="30" Style="{StaticResource ButtonStyle}" Click="Confirm_Click" Cursor="Hand" >
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal"   >
+                        <Image HorizontalAlignment="Left"  Source="Resources/check-mark.png" Height="20" Width="30" />
+                        <TextBlock HorizontalAlignment="Center"  VerticalAlignment="Center" Text="Confirm" />
+                    </StackPanel>
+                </Button>
+                <Border BorderBrush="Transparent" BorderThickness="5" />
+                <Button Style="{StaticResource ButtonStyle}" x:Name="exit" Width="150" Height="30" Click="Exit_Click" Cursor="Hand" >
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal"   >
+                        <Image HorizontalAlignment="Left"  Source="Resources/exit.png" Height="20" Width="30" />
+                        <TextBlock HorizontalAlignment="Center"  VerticalAlignment="Center" Text="Exit" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            <Button  Style="{StaticResource ButtonStyle}" x:Name="clear" Height="25" Width="100" VerticalAlignment="Bottom" Click="Clear_Click" Margin="7">
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal"   >
+                    <Image HorizontalAlignment="Left"  Source="Resources/clear.png" Height="20" Width="30" />
+                    <TextBlock HorizontalAlignment="Center"  VerticalAlignment="Center" Text="Clear" />
+                </StackPanel>
+            </Button>
+        </Grid>
+    </Grid>
+</Window>
